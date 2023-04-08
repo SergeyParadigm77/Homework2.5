@@ -38,7 +38,6 @@ public class EmployeeServiceImpl implements EmployeeService {
             throw new EmployeeNotFoundException();
         }
     }
-
     @Override
     public Collection<Employee> getAllEmployees() {
         return Collections.unmodifiableCollection(employees.values());

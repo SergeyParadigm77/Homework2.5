@@ -8,7 +8,6 @@ import pro.skype.Homework25.exceptions.EmployeeNotFoundException;
 
 import java.util.Collection;
 
-
 @RestController
 @RequestMapping("/employees")
 public class Controller {
