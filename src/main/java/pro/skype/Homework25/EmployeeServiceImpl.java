@@ -2,50 +2,45 @@ package pro.skype.Homework25;
 import org.springframework.stereotype.Service;
 import pro.skype.Homework25.exceptions.EmployeeAlreadyAddedException;
 import pro.skype.Homework25.exceptions.EmployeeNotFoundException;
-import pro.skype.Homework25.exceptions.EmployeeStorageIsFullException;
 
-import java.util.ArrayList;
-import java.util.List;
+
+import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
-    private final List<Employee> employees;
+    private final Map<String, Employee> employees;
     public EmployeeServiceImpl() {
-        employees = new ArrayList<>();
+        employees = new HashMap<>();
     }
     @Override
     public Employee addEmployee(String firstName, String lastName) {
         Employee employee = new Employee(firstName, lastName);
-        if (employees.contains(employee)){
+        if (employees.containsKey(employee.getFullName())){
             throw new EmployeeAlreadyAddedException();
         }
-        employees.add(employee);
+        employees.put(employee.getFullName(), employee);
         return employee;
     }
 
     @Override
     public Employee removeEmployee(String firstName, String lastName) {
-        Employee employee = new Employee(firstName, lastName);
-        if (!employees.contains(employee)) {
-            throw new EmployeeNotFoundException();
-        }
-        employees.remove(employee);
+        Employee employee = findEmployee(firstName, lastName);
+        employees.remove(employee.getFullName());
         return employee;
     }
 
     @Override
     public Employee findEmployee(String firstName, String lastName) {
-        Employee findEmployee = new Employee(firstName, lastName);
-        for (Employee employee: employees) {
-            if (employee.equals(findEmployee)) {
-                return employee;
-            }
+        Employee employee = new Employee(firstName, lastName);
+        if (employees.containsKey(employee.getFullName())) {
+            return employees.get(employee.getFullName());
+        } else {
+            throw new EmployeeNotFoundException();
         }
-        return null;
     }
 
     @Override
-    public List<Employee> getAllEmployees() {
-        return employees;
+    public Collection<Employee> getAllEmployees() {
+        return Collections.unmodifiableCollection(employees.values());
     }
 }

@@ -1,5 +1,6 @@
 package pro.skype.Homework25;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface EmployeeService {
@@ -7,5 +8,5 @@ public interface EmployeeService {
     Employee removeEmployee(String firstName, String lastName);
     Employee findEmployee(String firstName, String lastName);
 
-    List<Employee> getAllEmployees();
+    Collection<Employee> getAllEmployees();
 }

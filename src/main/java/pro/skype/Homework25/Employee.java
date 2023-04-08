@@ -1,5 +1,6 @@
 package pro.skype.Homework25;
 
+import java.beans.Transient;
 import java.util.Objects;
 
 public class Employee {
@@ -14,6 +15,10 @@ public class Employee {
         return firstName;
     }
     public String getLastName() { return lastName; }
+    @Transient
+    public String getFullName() {
+        return firstName + lastName;
+    }
 
     @Override
     public String toString() {
