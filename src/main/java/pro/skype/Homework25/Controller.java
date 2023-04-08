@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import pro.skype.Homework25.exceptions.EmployeeNotFoundException;
 
-import java.util.List;
+import java.util.Collection;
 
 @RestController
 @RequestMapping("/employees")
@@ -33,7 +33,7 @@ public Employee findEmployee(@RequestParam String firstName, @RequestParam Strin
         return employee;
 }
     @GetMapping
-    public List<Employee> getAllEmployee() {
+    public Collection<Employee> getAllEmployee() {
         return employeeService.getAllEmployees();
     }
 }
